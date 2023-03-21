@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMovementSimon : MonoBehaviour
 {
     Rigidbody2D rb;
+    public int lives;
     // Start is called before the first frame update
     void Start()
     {
