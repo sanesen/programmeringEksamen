@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: -6929493737928082095}
   - component: {fileID: 3434257562630733642}
   - component: {fileID: 7578377378537232859}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemyTestSimon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
