@@ -5,6 +5,7 @@ using TMPro;
 
 public class UImanager : MonoBehaviour
 {
+    //https://gamedevbeginner.com/singletons-in-unity-the-right-way/
     public static UImanager Instance { get; private set; }
     public TowerUpgrade tower;
     public TextMeshProUGUI levelText;
@@ -44,11 +45,11 @@ public class UImanager : MonoBehaviour
     public void upgradeButton()
     {
         tower.level++;
-        Display();
         tower.upgrade();
-
+        print(tower.level);
         tower.damage *= tower.level;
         tower.accuracy *= tower.level;
         tower.fireRate *= tower.level;
+        Display();
     }
 }
