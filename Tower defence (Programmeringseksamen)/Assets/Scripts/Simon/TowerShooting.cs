@@ -14,7 +14,8 @@ public class TowerShooting : MonoBehaviour
     public float reloadTime, bulletspeed;
     private float timer;
     private string targetMode;
-    public List<float> enemyDistance = new List<float>();
+    private List<float> enemyDistance = new List<float>();
+    private List<int> enemyStrength = new List<int>();
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,6 @@ public class TowerShooting : MonoBehaviour
 
         if (detection.enemies.Count != 0 && timer <= 0)
         {
-            targetMode = "Closest";
             switch (targetMode)
             {
                 case "First":
@@ -41,12 +41,43 @@ public class TowerShooting : MonoBehaviour
                 case "Closest":
                     ShootClosest();
                     break;
+                case "Strongest":
+                    ShootStrongest();
+                    break;
+                case "Weakest":
+                    ShootWeakest();
+                    break;
                 default:
                     break;
             }
         }
 
         timer -= Time.deltaTime;
+    }
+
+    public void ChooseTargetmode(int val)
+    {
+        switch (val)
+        {
+            case 0:
+                targetMode = "First";
+                break;
+            case 1:
+                targetMode = "Last";
+                break;
+            case 2:
+                targetMode = "Closest";
+                break;
+            case 3:
+                targetMode = "Strongest";
+                break;
+            case 4:
+                targetMode = "Weakest";
+                break;
+            default:
+                break;
+        }
+
     }
 
     private void ShootFirst()
@@ -80,6 +111,50 @@ public class TowerShooting : MonoBehaviour
         }
         Shoot(index);
         enemyDistance.Clear();
+    }
+
+    private void ShootStrongest()
+    {
+        for (int i = 0; i < detection.enemies.Count; i++)
+        {
+            enemyStrength.Add(detection.enemies[i].GetComponent<EnemyMovementSimon>().strength);
+        }
+
+        int strongest = enemyStrength[0];
+        int index = 0;
+
+        for (int i = 0; i < enemyStrength.Count; i++)
+        {
+            if (enemyStrength[i] > strongest)
+            {
+                strongest = enemyStrength[i];
+                index = i;
+            }
+        }
+        Shoot(index);
+        enemyStrength.Clear();
+    }
+
+    private void ShootWeakest()
+    {
+        for (int i = 0; i < detection.enemies.Count; i++)
+        {
+            enemyStrength.Add(detection.enemies[i].GetComponent<EnemyMovementSimon>().strength);
+        }
+
+        int weakest = enemyStrength[0];
+        int index = 0;
+
+        for (int i = 0; i < enemyStrength.Count; i++)
+        {
+            if (enemyStrength[i] < weakest)
+            {
+                weakest = enemyStrength[i];
+                index = i;
+            }
+        }
+        Shoot(index);
+        enemyStrength.Clear();
     }
 
     private void Shoot(int enemyIndex)
