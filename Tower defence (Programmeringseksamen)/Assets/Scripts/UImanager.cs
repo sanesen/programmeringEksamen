@@ -8,10 +8,11 @@ public class UImanager : MonoBehaviour
     //https://gamedevbeginner.com/singletons-in-unity-the-right-way/
     public static UImanager Instance { get; private set; }
     public TowerUpgrade tower;
-    public TextMeshProUGUI levelText, damageText, accuracyText, fireRateText, UpgradePriceText;
+    public TowerDetection detection;
+    public TextMeshProUGUI levelText, damageText, accuracyText, fireRateText, rangeText, UpgradePriceText;
 
     private void Awake()
-    {   
+    {
         if (Instance != null && Instance != this)
         {
             Destroy(this);
@@ -24,9 +25,9 @@ public class UImanager : MonoBehaviour
     {
         if (tower != null && tower.isPressed == true)
         {
-            Display();  
+            Display();
         }
-        
+
     }
     void Display()
     {
@@ -36,6 +37,7 @@ public class UImanager : MonoBehaviour
             damageText.text = tower.damage.ToString();
             accuracyText.text = tower.accuracy.ToString();
             fireRateText.text = tower.fireRate.ToString();
+            rangeText.text = tower.range.ToString();
             UpgradePriceText.text = (tower.level * 2).ToString();
         }
     }
@@ -44,9 +46,11 @@ public class UImanager : MonoBehaviour
     {
         tower.level++;
         tower.upgrade();
-        tower.damage *= tower.level;
-        tower.accuracy *= tower.level;
-        tower.fireRate *= tower.level;
+        tower.damage = tower.orgDamage * tower.level;
+        tower.accuracy = tower.orgAccuracy * tower.level;
+        tower.fireRate = tower.orgFireRate * tower.level;
+        tower.range = tower.orgRange * tower.level;
+        detection.RangeUpdate();
         Display();
     }
 }
