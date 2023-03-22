@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
@@ -8,17 +9,17 @@ using UnityEngine;
 public class TowerUpgrade : MonoBehaviour
 {
     public float damage, accuracy, fireRate;
-    private GameObject UI;
+    public bool isPressed;
+    public GameObject UI;
+    public Sprite[] sprites;
     private SpriteRenderer spriteRenderer;
-
- 
-
     public int level;
     void Start()
     {
-        UI = GameObject.Find("upgradeMenu");
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        upgrade();
     }
-
+        
     void Update()
     {
         
@@ -26,17 +27,43 @@ public class TowerUpgrade : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Uimanager.Instance.tower = this;
+        isPressed = true;
 
-        if (UI.activeInHierarchy)
+        UImanager.Instance.tower = this;
+
+        if (UI.activeSelf)
         {
             UI.SetActive(false);
         }
         
-        else if (!UI.activeInHierarchy)
+        else
         {
             UI.SetActive(true);
         }
         
+    }
+
+    private void OnMouseUp()
+    {
+        isPressed = false;
+    }
+
+    public void upgrade()
+    {
+        switch (level){
+
+            case 1:
+                {
+                    spriteRenderer.sprite = sprites[0]; break;
+                }
+                case 4:
+                {
+                    spriteRenderer.sprite = sprites[1]; break;
+                }
+                case 7:
+                {
+                    spriteRenderer.sprite = sprites[2]; break;
+                }
+        }
     }
 }
