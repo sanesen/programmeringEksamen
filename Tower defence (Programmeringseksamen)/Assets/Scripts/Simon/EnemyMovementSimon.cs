@@ -5,11 +5,15 @@ using UnityEngine;
 public class EnemyMovementSimon : MonoBehaviour
 {
     Rigidbody2D rb;
-    public int lives;
+    public int lives, strength;
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+        strength = Random.Range(1, 10);
+        Color opacity = Color.white;
+        opacity.a = 1/10f*strength;
+        this.gameObject.GetComponent<Renderer>().material.color = opacity;
     }
 
     // Update is called once per frame

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int damage;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -15,29 +16,14 @@ public class Bullet : MonoBehaviour
     {
 
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    print("Hit");
-    //    if (collision.gameObject.GetComponent<EnemyMovementSimon>().lives <= 0)
-    //    {
-    //        Destroy(collision.gameObject);
-    //    }
-    //    else
-    //    {
-    //        collision.gameObject.GetComponent<EnemyMovementSimon>().lives--;
-    //    }
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("Hit");
+        collision.GetComponent<EnemyMovementSimon>().lives -= damage;
         if (collision.GetComponent<EnemyMovementSimon>().lives <= 0)
         {
             Destroy(collision.gameObject);
         }
-        else
-        {
-            collision.GetComponent<EnemyMovementSimon>().lives--;
-        }
+        Destroy(this.gameObject);
     }
 }

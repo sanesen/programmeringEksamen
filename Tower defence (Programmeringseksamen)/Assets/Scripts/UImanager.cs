@@ -3,23 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Uimanager : MonoBehaviour
+public class UImanager : MonoBehaviour
 {
-    public static Uimanager Instance { get; private set; }
+    //https://gamedevbeginner.com/singletons-in-unity-the-right-way/
+    public static UImanager Instance { get; private set; }
     public TowerUpgrade tower;
-    private TextMeshProUGUI levelText;
-    private TextMeshProUGUI damageText;
-    private TextMeshProUGUI accuracyText;
-    private TextMeshProUGUI fireRateText;
-
-
-
+    public TextMeshProUGUI levelText, damageText, accuracyText, fireRateText, UpgradePriceText;
 
     private void Awake()
-    {
-        FindText();
-
-        if (Instance == null && Instance != this)
+    {   
+        if (Instance != null && Instance != this)
         {
             Destroy(this);
         }
@@ -27,25 +20,33 @@ public class Uimanager : MonoBehaviour
         else
         { Instance = this; }
     }
-
     void Update()
     {
-        Display();
-    }
-
-    void FindText()
-    {
-        levelText = GameObject.Find("levelText").GetComponent<TextMeshProUGUI>();
-        damageText = GameObject.Find("damageText").GetComponent<TextMeshProUGUI>();
-        accuracyText = GameObject.Find("accuracyText").GetComponent<TextMeshProUGUI>();
-        fireRateText = GameObject.Find("fireRateText").GetComponent<TextMeshProUGUI>();
+        if (tower != null && tower.isPressed == true)
+        {
+            Display();  
+        }
+        
     }
     void Display()
     {
-        levelText.text = tower.level.ToString();
-        damageText.text = tower.damage.ToString();
-        accuracyText.text = tower.accuracy.ToString();
-        fireRateText.text = tower.fireRate.ToString();
+        if (tower != null)
+        {
+            levelText.text = tower.level.ToString();
+            damageText.text = tower.damage.ToString();
+            accuracyText.text = tower.accuracy.ToString();
+            fireRateText.text = tower.fireRate.ToString();
+            UpgradePriceText.text = (tower.level * 2).ToString();
+        }
+    }
 
+    public void upgradeButton()
+    {
+        tower.level++;
+        tower.upgrade();
+        tower.damage *= tower.level;
+        tower.accuracy *= tower.level;
+        tower.fireRate *= tower.level;
+        Display();
     }
 }
