@@ -14,6 +14,7 @@ public class TowerUpgrade : MonoBehaviour
     public Sprite[] sprites;
     private SpriteRenderer spriteRenderer;
     public int level;
+    public float offset;
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -40,6 +41,9 @@ public class TowerUpgrade : MonoBehaviour
         {
             UI.SetActive(true);
         }
+
+        RectTransform rect = UI.GetComponent<RectTransform>();
+        UI.GetComponent<RectTransform>().position = Input.mousePosition + new Vector3(rect.sizeDelta.x/2, -rect.sizeDelta.y / 2,0);
         
     }
 
@@ -63,6 +67,10 @@ public class TowerUpgrade : MonoBehaviour
                 case 7:
                 {
                     spriteRenderer.sprite = sprites[2]; break;
+                }
+            case 11:
+                {
+                    spriteRenderer.sprite = sprites[3]; break;
                 }
         }
     }
