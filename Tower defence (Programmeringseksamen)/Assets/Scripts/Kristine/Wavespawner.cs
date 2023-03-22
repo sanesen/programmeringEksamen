@@ -3,39 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class Wavespawner : MonoBehaviour
 {
-    private const float V = 2f;
     public Transform enemyPrefab;
-
     public Transform spawnPoint;
+    public float CDTime = 5f;
+    public float countdown = 2f;
 
-    public float CountdownTime = 10f;
-    private float countdown = V;
-    private int WaveNum = 1;
 
-    void Update()
+    public int WaveNum = 0;
+
+
+
+    private void Update()
     {
-        if (countdown <=0f)
+        if (countdown <= 0)
         {
-            SpawnWave();
-            countdown = CountdownTime;
+            StartCoroutine(SpawnWave());
+            countdown = CDTime;
         }
+
         countdown -= Time.deltaTime;
-        
-    }
-    void SpawnWave()
-    {
-        for (int i = 0; i < WaveNum; i++)
-        {
-            SpawnEnemy();
-        }
-        Debug.Log("Wave Incomming");
-        WaveNum++;
-    }
 
-    void SpawnEnemy()
-    {
-        Instantiate(enemyPrefab, spawnPoint.position,spawnPoint.rotation);
+
+
+
+        IEnumerator SpawnWave()
+        {
+            WaveNum++;
+
+            for (int i = 0; i < WaveNum; i++)
+            {
+                SpawnEnemy();
+                yield return new WaitForSeconds(0.5f);
+            }
+            Debug.Log("Wave Incoming!");
+
+        }
+
+         void SpawnEnemy()
+        {
+            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+        }
     }
 }
+
