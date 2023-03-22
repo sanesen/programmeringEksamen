@@ -30,14 +30,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("Hit");
+        collision.GetComponent<EnemyMovementSimon>().lives--;
         if (collision.GetComponent<EnemyMovementSimon>().lives <= 0)
         {
             Destroy(collision.gameObject);
         }
-        else
-        {
-            collision.GetComponent<EnemyMovementSimon>().lives--;
-        }
+        Destroy(this.gameObject);
     }
 }
