@@ -652,6 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1474142121}
   - component: {fileID: 1474142122}
+  - component: {fileID: 1474142123}
   m_Layer: 0
   m_Name: rute
   m_TagString: Untagged
@@ -696,7 +697,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1474142120}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fbc241035ffe9a4e8579ae1170b5d77, type: 3}
   m_Name: 
@@ -705,6 +706,18 @@ MonoBehaviour:
   speed: 150
   MaHealth: 100
   CuHealth: 100
+--- !u!114 &1474142123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474142120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1af9d7501c09bcc48bf34415e4b85a6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1577960129
 GameObject:
   m_ObjectHideFlags: 0
@@ -3500,7 +3513,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.1342826, g: 0.72867644, b: 0.8679245, a: 1}
   m_FlipX: 0
@@ -3585,6 +3598,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2035447197501517214, guid: 4326e32f228ac1340b79b1d68401c5aa, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5767269841553219114, guid: 4326e32f228ac1340b79b1d68401c5aa, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3637,7 +3654,9 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 855120803182968127, guid: 4326e32f228ac1340b79b1d68401c5aa, type: 3}
+    - {fileID: 6055106469460494672, guid: 4326e32f228ac1340b79b1d68401c5aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4326e32f228ac1340b79b1d68401c5aa, type: 3}
 --- !u!1 &8236620991701546440 stripped
 GameObject:
@@ -3657,6 +3676,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+--- !u!114 &8236620991701546455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236620991701546440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fbc241035ffe9a4e8579ae1170b5d77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rute: {fileID: 1474142121}
+  speed: 10
+  MaHealth: 100
+  CuHealth: 100
 --- !u!1001 &8469912195412612090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3715,6 +3750,10 @@ PrefabInstance:
     - target: {fileID: 4144776862677396015, guid: 47025fb325f2db84abc4701699069113, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5847589238338568814, guid: 47025fb325f2db84abc4701699069113, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47025fb325f2db84abc4701699069113, type: 3}

@@ -12,6 +12,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
+        rute = ruteManager.Instance.transform;
         CuHealth = MaHealth;
 
         Transform[] _rute = new Transform[15];
@@ -19,7 +20,6 @@ public class EnemyMovement : MonoBehaviour
 
         for (int i = 0; i < _rute.Length; i++)
         {
-            print(transform.childCount);
             _rute[i] = rute.GetChild(i);
 
         }
