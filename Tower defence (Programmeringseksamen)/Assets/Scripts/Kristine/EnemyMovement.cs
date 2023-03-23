@@ -15,7 +15,7 @@ public class EnemyMovement : MonoBehaviour
         rute = ruteManager.Instance.transform;
         CuHealth = MaHealth;
 
-        Transform[] _rute = new Transform[Movement.points.Length];
+        Transform[] _rute = new Transform[15];
 
 
         for (int i = 0; i < _rute.Length; i++)

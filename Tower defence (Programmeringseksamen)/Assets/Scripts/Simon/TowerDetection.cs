@@ -23,12 +23,18 @@ public class TowerDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        enemies.Add(other.gameObject);
+        if (other.gameObject.tag=="Enemy")
+        {
+            enemies.Add(other.gameObject);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        enemies.Remove(collision.gameObject);
+        if (collision.gameObject.tag=="Enemy")
+        {
+            enemies.Remove(collision.gameObject);
+        }
     }
 
     public void RangeUpdate()
