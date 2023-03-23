@@ -7,22 +7,23 @@ using UnityEngine.UIElements;
 public class TowerShooting : MonoBehaviour
 {
     private TowerDetection detection;
+    private TowerUpgrade tower;
     public GameObject bullet;
     private GameObject bulletTemp;
     private Vector2 bulletDirection;
-    private Transform tower;
-    public float reloadTime, bulletspeed;
+    private Transform towerPos;
+    public float bulletspeed;
     private float timer;
     private string targetMode = "First";
     private List<float> enemyDistance = new List<float>();
     private List<int> enemyStrength = new List<int>();
-    public int bulletDamage = 2;
-
+    private float bulletSwayX,bulletSwayY;
     // Start is called before the first frame update
     void Start()
     {
-        tower = this.transform;
+        towerPos = this.transform;
         detection = GetComponentInChildren<TowerDetection>();
+        tower = GetComponent<TowerUpgrade>();
     }
 
     // Update is called once per frame
@@ -95,7 +96,7 @@ public class TowerShooting : MonoBehaviour
 
         for (int i = 0; i < detection.enemies.Count; i++)
         {
-            enemyDistance.Add(Vector2.Distance(tower.position, detection.enemies[i].transform.position));
+            enemyDistance.Add(Vector2.Distance(towerPos.position, detection.enemies[i].transform.position));
         }
 
         float closest = enemyDistance[0];
@@ -159,10 +160,12 @@ public class TowerShooting : MonoBehaviour
 
     private void Shoot(int enemyIndex)
     {
+        bulletSwayX = Random.Range(-100 / tower.accuracy, 100 / tower.accuracy);
+        bulletSwayY = Random.Range(-100 / tower.accuracy, 100 / tower.accuracy);
         bulletTemp = Instantiate(bullet, this.transform.position, Quaternion.identity);
-        bulletDirection = detection.enemies[enemyIndex].transform.position - tower.position;
+        bulletDirection = new Vector3(detection.enemies[enemyIndex].transform.position.x+bulletSwayX, detection.enemies[enemyIndex].transform.position.y + bulletSwayY) - towerPos.position;
         bulletTemp.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletspeed;
-        bulletTemp.GetComponent<Bullet>().damage = bulletDamage;
-        timer = reloadTime;
+        bulletTemp.GetComponent<Bullet>().damage = tower.damage;
+        timer = tower.fireRate;
     }
 }
