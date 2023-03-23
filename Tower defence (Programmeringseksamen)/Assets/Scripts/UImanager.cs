@@ -10,6 +10,7 @@ public class UImanager : MonoBehaviour
     public TowerUpgrade tower;
     public TowerDetection detection;
     public TextMeshProUGUI levelText, damageText, accuracyText, fireRateText, rangeText, UpgradePriceText;
+    public float damageUpgradeFactor, accuracyUpgradeFactor, fireRateUpgradeFactor, rangeUpgradeFactor;
 
     private void Awake()
     {
@@ -46,10 +47,10 @@ public class UImanager : MonoBehaviour
     {
         tower.level++;
         tower.upgrade();
-        tower.damage = tower.orgDamage * tower.level;
-        tower.accuracy = tower.orgAccuracy * tower.level;
-        tower.fireRate = tower.orgFireRate * tower.level;
-        tower.range = tower.orgRange * tower.level;
+        tower.damage = tower.orgDamage * damageUpgradeFactor;
+        tower.accuracy = tower.orgAccuracy * accuracyUpgradeFactor;
+        tower.fireRate = tower.orgFireRate * fireRateUpgradeFactor;
+        tower.range = tower.orgRange * rangeUpgradeFactor;
         detection.RangeUpdate();
         Display();
     }
