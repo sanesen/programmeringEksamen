@@ -160,6 +160,7 @@ public class TowerShooting : MonoBehaviour
 
     private void Shoot(int enemyIndex)
     {
+        transform.LookAt(detection.enemies[enemyIndex].transform.position);
         bulletSwayX = Random.Range(-100 / tower.accuracy, 100 / tower.accuracy);
         bulletSwayY = Random.Range(-100 / tower.accuracy, 100 / tower.accuracy);
         bulletTemp = Instantiate(bullet, this.transform.position, Quaternion.identity);

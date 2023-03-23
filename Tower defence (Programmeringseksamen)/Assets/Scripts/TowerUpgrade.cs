@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
@@ -22,16 +23,13 @@ public class TowerUpgrade : MonoBehaviour
         orgAccuracy = accuracy;
         orgFireRate = fireRate;
         orgRange = range;
+
         upgrade();
-    }
-
-    void Update()
-    {
-
     }
 
     private void OnMouseDown()
     {
+
         isPressed = true;
 
         UImanager.Instance.tower = this;
@@ -48,7 +46,19 @@ public class TowerUpgrade : MonoBehaviour
         }
 
         RectTransform rect = UI.GetComponent<RectTransform>();
-        UI.GetComponent<RectTransform>().position = Input.mousePosition + new Vector3(rect.sizeDelta.x / 2 + 100, -rect.sizeDelta.y / 2, 0);
+
+        Vector3 UIposition = Input.mousePosition + new Vector3(rect.sizeDelta.x / 2, -rect.sizeDelta.y / 2, 0);
+        UI.GetComponent<RectTransform>().position = UIposition;
+
+        if (rect.position.x > 570f )
+        {
+            rect.position = new Vector3(570f,rect.position.y,0);
+        }
+
+        if (rect.position.y < 114f)
+        {
+            rect.position = new Vector3(rect.position.x, 114f, 0);
+        }
 
     }
 
