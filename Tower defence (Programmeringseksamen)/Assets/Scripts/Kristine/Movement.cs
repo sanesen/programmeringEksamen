@@ -5,14 +5,13 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public static Transform[] points;
-    private void Start ()
+    private void Awake()
     {
+
         points = new Transform[transform.childCount];
         for (int i = 0; i < points.Length; i++)
         {
-            points[i]=transform.GetChild(i);
-
+            points[i] = transform.GetChild(i);
         }
-        print(points.Length);
     }
 }
