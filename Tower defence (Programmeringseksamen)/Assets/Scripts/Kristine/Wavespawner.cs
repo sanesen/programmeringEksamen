@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class Wavespawner : MonoBehaviour
 {
-    public Transform enemyPrefab;
+    public Transform NormalenemyPrefab;
+ 
     public Transform spawnPoint;
     public float CDTime = 5f;
     public float countdown = 2f;
@@ -44,7 +45,8 @@ public class Wavespawner : MonoBehaviour
 
          void SpawnEnemy()
         {
-            Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
+            Instantiate(NormalenemyPrefab, spawnPoint.position, spawnPoint.rotation);
+
         }
     }
 }
