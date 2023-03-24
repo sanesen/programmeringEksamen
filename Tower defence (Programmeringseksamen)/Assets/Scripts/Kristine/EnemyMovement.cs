@@ -7,15 +7,14 @@ public class EnemyMovement : MonoBehaviour
     public Transform rute;
 
     public float speed = 5f;
-    public float MaHealth;
-    public float CuHealth;
+    public float lives = 2;
 
     private void Start()
     {
         rute = ruteManager.Instance.transform;
-        CuHealth = MaHealth;
 
-        Transform[] _rute = new Transform[15];
+
+        Transform[] _rute = new Transform[16];
 
 
         for (int i = 0; i < _rute.Length; i++)
