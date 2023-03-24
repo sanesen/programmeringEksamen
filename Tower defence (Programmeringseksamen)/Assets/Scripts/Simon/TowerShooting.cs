@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -17,7 +18,8 @@ public class TowerShooting : MonoBehaviour
     private string targetMode = "First";
     private List<float> enemyDistance = new List<float>();
     private List<int> enemyStrength = new List<int>();
-    private float bulletSwayX,bulletSwayY;
+    private float bulletSwayX, bulletSwayY;
+    public Transform target;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,9 @@ public class TowerShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (detection.enemies.Count != 0 && timer <= 0)
+        UpdateRotation();
+
+        if (detection.enemies.Count != 0)
         {
             switch (targetMode)
             {
@@ -53,11 +57,14 @@ public class TowerShooting : MonoBehaviour
             }
         }
 
+
+
         timer -= Time.deltaTime;
     }
 
     public void ChooseTargetmode(int val)
     {
+
         switch (val)
         {
             case 0:
@@ -79,21 +86,30 @@ public class TowerShooting : MonoBehaviour
                 break;
         }
 
+
+
     }
 
     private void ShootFirst()
     {
-        Shoot(0);
+        target = detection.enemies[0].transform;
+        if (detection.enemies.Count != 0 && timer <= 0)
+        {
+            Shoot(0);
+        }
     }
 
     private void ShootLast()
     {
-        Shoot(detection.enemies.Count - 1);
+        target = detection.enemies[detection.enemies.Count - 1].transform;
+        if (detection.enemies.Count != 0 && timer <= 0)
+        {
+            Shoot(detection.enemies.Count - 1);
+        }
     }
 
     private void ShootClosest()
     {
-
         for (int i = 0; i < detection.enemies.Count; i++)
         {
             enemyDistance.Add(Vector2.Distance(towerPos.position, detection.enemies[i].transform.position));
@@ -110,7 +126,12 @@ public class TowerShooting : MonoBehaviour
                 index = i;
             }
         }
-        Shoot(index);
+        target = detection.enemies[index].transform;
+        if (detection.enemies.Count != 0 && timer <= 0)
+        {
+            Shoot(index);
+        }
+
         enemyDistance.Clear();
     }
 
@@ -132,7 +153,11 @@ public class TowerShooting : MonoBehaviour
                 index = i;
             }
         }
-        Shoot(index);
+        target = detection.enemies[index].transform;
+        if (detection.enemies.Count != 0 && timer <= 0)
+        {
+            Shoot(index);
+        }
         enemyStrength.Clear();
     }
 
@@ -154,19 +179,31 @@ public class TowerShooting : MonoBehaviour
                 index = i;
             }
         }
-        Shoot(index);
+        target = detection.enemies[index].transform;
+        if (detection.enemies.Count != 0 && timer <= 0)
+        {
+            Shoot(index);
+        }
         enemyStrength.Clear();
     }
 
     private void Shoot(int enemyIndex)
     {
-        transform.LookAt(detection.enemies[enemyIndex].transform.position);
         bulletSwayX = Random.Range(-100 / tower.accuracy, 100 / tower.accuracy);
         bulletSwayY = Random.Range(-100 / tower.accuracy, 100 / tower.accuracy);
         bulletTemp = Instantiate(bullet, this.transform.position, Quaternion.identity);
-        bulletDirection = new Vector3(detection.enemies[enemyIndex].transform.position.x+bulletSwayX, detection.enemies[enemyIndex].transform.position.y + bulletSwayY) - towerPos.position;
+        bulletDirection = new Vector3(detection.enemies[enemyIndex].transform.position.x + bulletSwayX, detection.enemies[enemyIndex].transform.position.y + bulletSwayY) - towerPos.position;
         bulletTemp.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletspeed;
         bulletTemp.GetComponent<Bullet>().damage = tower.damage;
         timer = tower.fireRate;
+    }
+    void UpdateRotation()
+    {
+        if (target != null)
+        {
+            Vector3 dir = Vector3.RotateTowards(transform.up, target.position - transform.position, Mathf.PI, 0);
+            transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
+        }
+
     }
 }

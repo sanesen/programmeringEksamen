@@ -6,6 +6,7 @@ public class TowerDetection : MonoBehaviour
 {
     public List<GameObject> enemies;
     private TowerUpgrade tower;
+    private TowerShooting towerShoot;
 
 
     // Start is called before the first frame update
@@ -13,6 +14,7 @@ public class TowerDetection : MonoBehaviour
     {
         tower = GetComponentInParent<TowerUpgrade>();
         transform.localScale = Vector3.one * tower.range;
+        towerShoot = GetComponentInParent<TowerShooting>();
     }
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class TowerDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag=="Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
             enemies.Add(other.gameObject);
         }
@@ -31,9 +33,13 @@ public class TowerDetection : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag=="Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             enemies.Remove(collision.gameObject);
+        }
+        if (towerShoot.target == collision.gameObject.transform)
+        {
+            towerShoot.target = null;
         }
     }
 
