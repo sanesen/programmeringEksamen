@@ -23,42 +23,54 @@ public class TowerUpgrade : MonoBehaviour
         orgAccuracy = accuracy;
         orgFireRate = fireRate;
         orgRange = range;
-
         upgrade();
+     
+    }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            if (UI.activeSelf) {
+                UI.SetActive(false);
+                UImanager.uishown = false;
+            }
+        }
     }
 
     private void OnMouseDown()
     {
 
         isPressed = true;
-
-        UImanager.Instance.tower = this;
+        if (UImanager.uishown == false)
+        {
+            UImanager.Instance.tower = this;
+        }
+        
         UImanager.Instance.detection = GetComponentInChildren<TowerDetection>();
 
-        if (UI.activeSelf)
+        if (!UI.activeSelf)
         {
-            UI.SetActive(false);
-        }
+            RectTransform rect = UI.GetComponent<RectTransform>();
 
-        else
-        {
+            Vector3 UIposition = Input.mousePosition + new Vector3(rect.sizeDelta.x / 2, -rect.sizeDelta.y / 2, 0);
+            UI.GetComponent<RectTransform>().position = UIposition;
+
+            if (rect.position.x > 570f)
+            {
+                rect.position = new Vector3(570f, rect.position.y, 0);
+            }
+
+            if (rect.position.y < 114f)
+            {
+                rect.position = new Vector3(rect.position.x, 114f, 0);
+            }
             UI.SetActive(true);
+            UImanager.uishown = true;
+           
         }
 
-        RectTransform rect = UI.GetComponent<RectTransform>();
-
-        Vector3 UIposition = Input.mousePosition + new Vector3(rect.sizeDelta.x / 2, -rect.sizeDelta.y / 2, 0);
-        UI.GetComponent<RectTransform>().position = UIposition;
-
-        if (rect.position.x > 570f )
-        {
-            rect.position = new Vector3(570f,rect.position.y,0);
-        }
-
-        if (rect.position.y < 114f)
-        {
-            rect.position = new Vector3(rect.position.x, 114f, 0);
-        }
+ 
 
     }
 

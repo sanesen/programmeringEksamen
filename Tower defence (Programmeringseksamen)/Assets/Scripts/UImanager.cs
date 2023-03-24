@@ -14,6 +14,7 @@ public class UImanager : MonoBehaviour
     public TextMeshProUGUI levelText, damageText, accuracyText, fireRateText, rangeText, UpgradePriceText, balanceText;
     private int upgradeprice;
     private int balance;
+    public static bool uishown;
     private void Awake()
     {
         if (Instance != null && Instance != this)
