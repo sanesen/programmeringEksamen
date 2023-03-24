@@ -10,14 +10,15 @@ using UnityEngine;
 public class TowerUpgrade : MonoBehaviour
 {
     public float damage, accuracy, fireRate, range;
-    public float orgDamage, orgAccuracy, orgFireRate, orgRange;
-    public bool isPressed;
+    [HideInInspector] public float orgDamage, orgAccuracy, orgFireRate, orgRange;
+    [HideInInspector] public bool isPressed;
     public GameObject UI;
     public Sprite[] sprites;
     private SpriteRenderer spriteRenderer;
     public int level;
-    void Start()
+    void Awake()
     {
+        UI = GameObject.Find("Canvas").transform.Find("upgradeMenu").gameObject;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         orgDamage = damage;
         orgAccuracy = accuracy;
