@@ -10,12 +10,12 @@ public class Target : MonoBehaviour
 
     public void Start()
     {
-        target = Movement.points[0];
+        //target = Movement.points[0];
     }
     public void Update()
     {
-        Vector2 dir = target.position - transform.position;
-        transform.Translate(dir.normalized*speed*Time.deltaTime, Space.World);
+        //Vector2 dir = target.position - transform.position;
+        //transform.Translate(dir.normalized*speed*Time.deltaTime, Space.World);
 
         if (Vector2.Distance(transform.position, target.position) <= 0.4f)
         {

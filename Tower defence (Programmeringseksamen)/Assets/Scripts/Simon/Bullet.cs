@@ -19,8 +19,8 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<EnemyMovementSimon>().lives -= damage;
-        if (collision.GetComponent<EnemyMovementSimon>().lives <= 0)
+        collision.GetComponent<EnemyMovement>().lives -= damage;
+        if (collision.GetComponent<EnemyMovement>().lives <= 0)
         {
             Destroy(collision.gameObject);
         }

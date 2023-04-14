@@ -15,7 +15,8 @@ public class TowerShooting : MonoBehaviour
     private Transform towerPos;
     public float bulletspeed;
     private float timer;
-    private string targetMode = "First";
+    public string targetMode = "First";
+    public int targetModeIndex = 0;
     private List<float> enemyDistance = new List<float>();
     private List<int> enemyStrength = new List<int>();
     private float bulletSwayX, bulletSwayY;
@@ -62,33 +63,6 @@ public class TowerShooting : MonoBehaviour
         timer -= Time.deltaTime;
     }
 
-    public void ChooseTargetmode(int val)
-    {
-
-        switch (val)
-        {
-            case 0:
-                targetMode = "First";
-                break;
-            case 1:
-                targetMode = "Last";
-                break;
-            case 2:
-                targetMode = "Closest";
-                break;
-            case 3:
-                targetMode = "Strongest";
-                break;
-            case 4:
-                targetMode = "Weakest";
-                break;
-            default:
-                break;
-        }
-
-
-
-    }
 
     private void ShootFirst()
     {

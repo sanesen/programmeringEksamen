@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
@@ -10,28 +11,30 @@ using UnityEngine;
 public class TowerUpgrade : MonoBehaviour
 {
     public float damage, accuracy, fireRate, range;
-    public float orgDamage, orgAccuracy, orgFireRate, orgRange;
-    public bool isPressed;
+    [HideInInspector] public float orgDamage, orgAccuracy, orgFireRate, orgRange;
+    [HideInInspector] public bool isPressed;
     public GameObject UI;
     public Sprite[] sprites;
     private SpriteRenderer spriteRenderer;
     public int level;
-    void Start()
+    void Awake()
     {
+        UI = GameObject.Find("Canvas").transform.Find("upgradeMenu").gameObject;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         orgDamage = damage;
         orgAccuracy = accuracy;
         orgFireRate = fireRate;
         orgRange = range;
         upgrade();
-     
+
     }
-    
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (UI.activeSelf) {
+            if (UI.activeSelf)
+            {
                 UI.SetActive(false);
                 UImanager.uishown = false;
             }
@@ -46,8 +49,9 @@ public class TowerUpgrade : MonoBehaviour
         {
             UImanager.Instance.tower = this;
         }
-        
+
         UImanager.Instance.detection = GetComponentInChildren<TowerDetection>();
+        UImanager.Instance.shooting = GetComponentInChildren<TowerShooting>();
 
         if (!UI.activeSelf)
         {
@@ -67,10 +71,10 @@ public class TowerUpgrade : MonoBehaviour
             }
             UI.SetActive(true);
             UImanager.uishown = true;
-           
+
         }
 
- 
+
 
     }
 
