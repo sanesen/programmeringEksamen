@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
@@ -25,14 +26,15 @@ public class TowerUpgrade : MonoBehaviour
         orgFireRate = fireRate;
         orgRange = range;
         upgrade();
-     
+
     }
-    
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (UI.activeSelf) {
+            if (UI.activeSelf)
+            {
                 UI.SetActive(false);
                 UImanager.uishown = false;
             }
@@ -47,8 +49,9 @@ public class TowerUpgrade : MonoBehaviour
         {
             UImanager.Instance.tower = this;
         }
-        
+
         UImanager.Instance.detection = GetComponentInChildren<TowerDetection>();
+        UImanager.Instance.shooting = GetComponentInChildren<TowerShooting>();
 
         if (!UI.activeSelf)
         {
@@ -68,10 +71,10 @@ public class TowerUpgrade : MonoBehaviour
             }
             UI.SetActive(true);
             UImanager.uishown = true;
-           
+
         }
 
- 
+
 
     }
 

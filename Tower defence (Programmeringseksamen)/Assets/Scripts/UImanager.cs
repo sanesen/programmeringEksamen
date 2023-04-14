@@ -11,7 +11,9 @@ public class UImanager : MonoBehaviour
     public static UImanager Instance { get; private set; }
     [HideInInspector] public TowerUpgrade tower;
     public TowerDetection detection;
+    public TowerShooting shooting;
     public TextMeshProUGUI levelText, damageText, accuracyText, fireRateText, rangeText, UpgradePriceText, balanceText;
+    public TMP_Dropdown targetModeChooser;
     private int upgradeprice;
     private int balance;
     public static bool uishown;
@@ -43,14 +45,15 @@ public class UImanager : MonoBehaviour
             fireRateText.text = tower.fireRate.ToString();
             rangeText.text = tower.range.ToString();
             UpgradePriceText.text = (tower.level * 2).ToString();
+            Instance.targetModeChooser.SetValueWithoutNotify(shooting.targetModeIndex);
         }
     }
 
     public void upgradeButton()
     {
-        if (balance>=upgradeprice)
+        if (balance >= upgradeprice)
         {
-            balance=- upgradeprice;
+            balance = -upgradeprice;
             tower.level++;
             tower.upgrade();
             tower.damage = tower.orgDamage * tower.level;
@@ -60,12 +63,37 @@ public class UImanager : MonoBehaviour
             detection.RangeUpdate();
             Display();
         }
-     
+
     }
 
     public void updateBalance(int value)
     {
-        balance =+ value;
+        balance = +value;
         balanceText.text = balance.ToString();
+    }
+
+    public void TargetMode(int val)
+    {
+        shooting.targetModeIndex = val;
+        switch (val)
+        {
+            case 0:
+                shooting.targetMode = "First";
+                break;
+            case 1:
+                shooting.targetMode = "Last";
+                break;
+            case 2:
+                shooting.targetMode = "Closest";
+                break;
+            case 3:
+                shooting.targetMode = "Strongest";
+                break;
+            case 4:
+                shooting.targetMode = "Weakest";
+                break;
+            default:
+                break;
+        }
     }
 }
