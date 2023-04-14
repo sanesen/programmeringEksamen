@@ -169,7 +169,8 @@ public class TowerShooting : MonoBehaviour
         bulletDirection = new Vector3(detection.enemies[enemyIndex].transform.position.x + bulletSwayX, detection.enemies[enemyIndex].transform.position.y + bulletSwayY) - towerPos.position;
         bulletTemp.GetComponent<Rigidbody2D>().velocity = bulletDirection * bulletspeed;
         bulletTemp.GetComponent<Bullet>().damage = tower.damage;
-        timer = tower.fireRate;
+        timer = 200 / tower.fireRate;
+        print("Shoot");
     }
     void UpdateRotation()
     {
